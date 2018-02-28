@@ -1,4 +1,6 @@
 #coding=utf-8
+# 这个是最早成功的版本
+
 import re
 import urllib
 import urllib2
@@ -6,8 +8,10 @@ import requests
 import cookielib
 import random
 
-
-cookie = 'JSESSIONID=40787E5EEB7D181D8EB7BE0F3FAEA036'
+cookie_file = open('cookie.txt','r')
+cookie = cookie_file.read()
+cookie_file.close()
+print cookie
 
 url = 'http://service.bjtu.edu.cn/nav_login'
 headers = {
@@ -42,6 +46,9 @@ if 'Set-Cookie' in info.keys():
   cookie = result[0]
   print 'use new cookie--------------------------------'
   print cookie
+  cookie_file = open('cookie.txt', 'w')
+  cookie_file.write(cookie)
+  cookie_file.close()
   headers['Cookie'] = cookie
   #r = requests.get(url,headers=headers)
   info = r.headers
@@ -85,7 +92,7 @@ print checkcode
 print headers
 url = 'http://service.bjtu.edu.cn/LoginAction.action'
 res1 = requests.post(url,headers=headers,data=post_data)
-print res1.content
+#print res1.content
 
 #再次找到checkcode
 #result = pattern.findall(res1.content)
@@ -113,16 +120,17 @@ headers2 = {
 url2 = 'http://service.bjtu.edu.cn/refreshaccount?t=0.5359657041847518'
 requests.get(url2,headers=headers2)
 
+
 #开始查询
 post_data={
   'type':'4',
   'startDate':'2017-07-01',
-  'endDate':'2017-07-31'
+  'endDate':'2017-07-02'
 }
 url = 'http://service.bjtu.edu.cn/UserLoginLogAction.action'
 headers['Referer'] = 'http://service.bjtu.edu.cn/nav_loginLog'
 res1 = requests.post(url,headers=headers,data=post_data)
-print res1.content
+#print res1.content
 
 
 
@@ -186,7 +194,7 @@ try:
 
   print len(NetUsedDetailData)
   for rowdata in NetUsedDetailData:
-    print rowdata
+    #print rowdata
     pass
   print len(NetUsedDetailData)
   #print re.findall(r'\<tr\>.*\</tr\>', htmlstr)
