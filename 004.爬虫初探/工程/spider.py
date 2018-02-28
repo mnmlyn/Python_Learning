@@ -7,7 +7,7 @@ import cookielib
 import random
 
 
-cookie = 'JSESSIONID=F319030453E25BA1ED7A5C54A605AD9E'
+cookie = 'JSESSIONID=40787E5EEB7D181D8EB7BE0F3FAEA036'
 
 url = 'http://service.bjtu.edu.cn/nav_login'
 headers = {
@@ -32,18 +32,18 @@ htmlstr = r.content
 print type(info)
 print info
 print type(htmlstr)
-print htmlstr
+#print htmlstr
 
 # 找到cookie
 pattern = re.compile(r'\s*(JSESSIONID=[0-9A-Z]*);\s*Path')
-if 'set-cookie' in info.keys():
+if 'Set-Cookie' in info.keys():
   setcookie = info['set-cookie']
   result = pattern.findall(setcookie)
   cookie = result[0]
   print 'use new cookie--------------------------------'
   print cookie
   headers['Cookie'] = cookie
-  r = requests.get(url,headers=headers)
+  #r = requests.get(url,headers=headers)
   info = r.headers
   htmlstr = r.content
 
@@ -58,7 +58,7 @@ headers1 = {
 'Accept-Language': 'zh-CN,zh;q=0.8',
 'Cookie': cookie
 }
-url1 = 'http://service.bjtu.edu.cn/nav_login/RandomCodeAction.action?randomNum=0.2509350187349078'
+url1 = 'http://service.bjtu.edu.cn/RandomCodeAction.action?randomNum=0.2509350187349078'
 requests.get(url1,headers=headers1)
 
 #找到checkcode
@@ -72,10 +72,11 @@ headers['Origin'] = 'http://service.bjtu.edu.cn'
 headers['Cache-Control'] = 'max-age=0'
 headers['Content-Type'] = 'application/x-www-form-urlencoded'
 headers['Accept-Encoding'] = 'gzip, deflate'
+headers['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
 headers['Cookie'] = cookie
 post_data = {
 'account' : '15311026',
-'password' : '5af8403bdf6ad0539754c7de694747a5',
+'password' : '751e7712c3d00d1814811b94ab1aee79',
 'code' : '',
 'checkcode' : checkcode,
 'Submit' : '登 录',
@@ -85,7 +86,32 @@ print headers
 url = 'http://service.bjtu.edu.cn/LoginAction.action'
 res1 = requests.post(url,headers=headers,data=post_data)
 print res1.content
+
+#再次找到checkcode
+#result = pattern.findall(res1.content)
+#checkcode = result[0]
+#post_data['checkcode'] = checkcode
+
+#headers['Referer'] = 'http://service.bjtu.edu.cn/LoginAction.action'
+#res1 = requests.post(url,headers=headers,data=post_data)
+#print res1.content
+
 #print res1.headers
+
+#2018.2.28新增，刷新账户
+headers2 = {
+'Host':'service.bjtu.edu.cn',
+'Connection':'keep-alive',
+'User-Agent': 'Mozilla/5.0(Windows NT 10.0; Win64; x64) AppleWebKit/537.36(KHTML, like Gecko) Chrome/58.0.3029.96 Safari/537.36',
+'Accept': 'application/json, text/javascript, */*; q=0.01',
+'X-Requested-With': 'XMLHttpRequest',
+'Referer': 'http://service.bjtu.edu.cn/LoginAction.action',
+'Accept-Encoding': 'gzip, deflate, sdch',
+'Accept-Language': 'zh-CN,zh;q=0.8',
+'Cookie': cookie
+}
+url2 = 'http://service.bjtu.edu.cn/refreshaccount?t=0.5359657041847518'
+requests.get(url2,headers=headers2)
 
 #开始查询
 post_data={
