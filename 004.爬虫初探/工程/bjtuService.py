@@ -13,6 +13,7 @@ class bjtuService(object):
         self.password = self.calMD5(password)
         self.accountInfo = {}
         self.NetUsedDetailData = []
+        self.OnlineClient = []
         pass
 
     def calMD5(self,password_raw):
@@ -181,6 +182,7 @@ class bjtuService(object):
                                   \</tr\>
                                   )''', re.DOTALL | re.X)
             result = pattern.findall(rc)
+            self.NetUsedDetailData = []
             for rowdata in result:
                 if len(rowdata) != 10:
                     continue
@@ -199,5 +201,61 @@ class bjtuService(object):
             return self.NetUsedDetailData
         except:
             return {}
+
+    def getOnlineClient(self):
+        url = "http://service.bjtu.edu.cn/nav_offLine?t=" + str(random.random())
+        headers = {
+            'cookie' : self.cookie
+        }
+        r = requests.get(url,headers=headers)
+        rc = r.content
+        # 正则匹配找到在线账号信息
+        pattern = re.compile(r'''
+            (?:<tr>\s*
+                <td>\s*
+                ((?:19|20)\d{2}-(?:0?[1-9]|1[0-2])-(?:0?[1-9]|[12][0-9]|3[01])\s+(?:0?[0-9]|1[0-9]|2[0-3])(?::[0-5][0-9]){2}) #日期 时间
+                \s*&nbsp;\s*</td>\s*
+                <td>\s*
+                ((?:(?:\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])\.){3}(?:\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])) #IP地址
+                \s*&nbsp;\s*</td>\s*
+                <td>.*?</td>\s* # .*是贪婪的，在其后加上?变为.*?，则为非贪婪匹配
+                <td>\s*
+                ([\dA-Z]{12}) # MAC地址
+                \s*&nbsp;\s*</td>\s*
+                <td.*?>\s*(\d+)\s*</td>\s* # 匹配隐藏的标识号Tag
+                (?:<td.*?/td>\s*) # 非贪婪匹配<td>标识
+                .*?
+            </tr>)
+        ''',re.DOTALL | re.X)
+        result = pattern.findall(rc)
+        self.OnlineClient = []
+        for rowdata in result:
+            rowdict = {}
+            rowdict['LoginTime'] = rowdata[0]
+            rowdict['IP'] = rowdata[1]
+            rowdict['MAC'] = rowdata[2]
+            rowdict['Tag'] = rowdata[3]
+            self.OnlineClient.append(rowdict)
+        return self.OnlineClient
+
+    # mac,ip,tag三个条件满足其一，则强制下线。对于tag不做验证，尽量不用
+    def forceToOffLine(self,mac="",ip="",tag=""):
+        tags = []
+        tag = tag.strip()
+        if tag != "":
+            tags.append(tag)
+            print 'add Tag ' + tag
+        for rowdata in self.OnlineClient:
+            if rowdata['IP'] == ip or rowdata['MAC'] == mac:
+                if rowdata['Tag'] not in tags:
+                    tags.append(rowdata['Tag'])
+                    print 'add Tag for IP or MAC ' + rowdata['Tag']
+
+        headers = {
+            'cookie': self.cookie
+        }
+        for onetag in tags:
+            url = "http://service.bjtu.edu.cn/tooffline?t=" + str(random.random()) + "&fldsessionid=" + onetag
+            requests.get(url,headers=headers)
 
 
