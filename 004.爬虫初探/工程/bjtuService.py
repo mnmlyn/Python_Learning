@@ -2,16 +2,23 @@
 import requests
 import random
 import re
+import hashlib
 
 class bjtuService(object):
 
-    def __init__(self,account='15311026',password = '751e7712c3d00d1814811b94ab1aee79'):
+    def __init__(self,account='15311026',password = 'duan1883092'):
         self.cookie = self.getCookieLocal()
         self.account = account
-        self.password = password
+        self.password_raw = password
+        self.password = self.calMD5(password)
         self.accountInfo = {}
         self.NetUsedDetailData = []
         pass
+
+    def calMD5(self,password_raw):
+        md = hashlib.md5()
+        md.update(password_raw)
+        return md.hexdigest()
 
     def getCookieLocal(self):
         cookie_file = open('cookie.txt', 'r')

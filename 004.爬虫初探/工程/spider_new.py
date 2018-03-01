@@ -4,7 +4,7 @@ aa = bjtuService.bjtuService()
 
 if aa.Login():
     print 'Login'
-    result = aa.searchNetUsageDetail('2018-01-01','2018-01-31')
+    result = aa.searchNetUsageDetail('2018-01-01','2018-03-01')
     print result
     print len(result)
 
@@ -23,3 +23,4 @@ if aa.Login():
 
 else:
     print 'Login Error'
+
