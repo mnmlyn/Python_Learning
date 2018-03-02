@@ -1,0 +1,73 @@
+JSESSIONID=995AEF7076E608E4322BAD8A8B29F710  cookie
+JSESSIONID=995AEF7076E608E4322BAD8A8B29F710
+
+JSESSIONID=7BC91CE1179E7BC6E270AE5D00DAC07E
+JSESSIONID=EFF75E51517071307D98F82D9A59114E
+
+Form item: "checkcode" = "6690"
+Form item: "checkcode" = "162"
+Form item: "checkcode" = "8176"
+Form item: "checkcode" = "3753"
+
+JSESSIONID=760FDE8195BD464A5785795152BB57AB
+JSESSIONID=760FDE8195BD464A5785795152BB57AB
+JSESSIONID=760FDE8195BD464A5785795152BB57AB
+
+Form item: "password" = "5af8403bdf6ad0539754c7de694747a5"
+Form item: "password" = "5af8403bdf6ad0539754c7de694747a5"
+Form item: "password" = "5af8403bdf6ad0539754c7de694747a5"
+
+
+360
+safedog-flow-item=5FFE91FCA74FEF9BB3B8C1B63D588870; JSESSIONID=A7EBA656957DC5DB88D0B0BA9941CD13
+Form item: "password" = "5af8403bdf6ad0539754c7de694747a5"
+Form item: "checkcode" = "9246"
+
+http://service.bjtu.edu.cn/nav_login
+
+
+Hypertext Transfer Protocol
+    GET /nav_login HTTP/1.1\r\n
+    Host: service.bjtu.edu.cn\r\n
+    Connection: keep-alive\r\n
+    Upgrade-Insecure-Requests: 1\r\n
+    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.96 Safari/537.36\r\n
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\r\n
+    Referer: http://service.bjtu.edu.cn/\r\n
+    Accept-Encoding: gzip, deflate, sdch\r\n
+    Accept-Language: zh-CN,zh;q=0.8\r\n
+    Cookie: JSESSIONID=760FDE8195BD464A5785795152BB57AB\r\n
+    \r\n
+
+Hypertext Transfer Protocol
+    POST /LoginAction.action HTTP/1.1\r\n
+    Host: service.bjtu.edu.cn\r\n
+    Connection: keep-alive\r\n
+    Content-Length: 106\r\n
+    Cache-Control: max-age=0\r\n
+    Origin: http://service.bjtu.edu.cn\r\n
+    Upgrade-Insecure-Requests: 1\r\n
+    User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.96 Safari/537.36\r\n
+    Content-Type: application/x-www-form-urlencoded\r\n
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\r\n
+    Referer: http://service.bjtu.edu.cn/nav_login\r\n
+    Accept-Encoding: gzip, deflate\r\n
+    Accept-Language: zh-CN,zh;q=0.8\r\n
+    Cookie: JSESSIONID=760FDE8195BD464A5785795152BB57AB\r\n
+    \r\n
+
+	http://service.bjtu.edu.cn/LoginAction.action
+
+HTML Form URL Encoded: application/x-www-form-urlencoded
+    Form item: "account" = "15311026"
+    Form item: "password" = "5af8403bdf6ad0539754c7de694747a5"
+    Form item: "code" = ""
+    Form item: "checkcode" = "7479"
+    Form item: "Submit" = "µÇ Â¼"
+
+
+pscp -pw open -P 10022 D:\Python_Learning\004.ÅÀ³æ³õÌ½\¹¤³Ì\spider.py min@211.71.67.116:/home/min/spider/
+
+
+
+
