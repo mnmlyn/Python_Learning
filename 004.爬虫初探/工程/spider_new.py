@@ -40,5 +40,5 @@ if aa.Login():
 else:
     print 'Login Error'
 
-raw_input('Press <Enter>')
+#raw_input('Press <Enter>')
 
