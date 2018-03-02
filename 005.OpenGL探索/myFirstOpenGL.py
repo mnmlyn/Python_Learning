@@ -5,7 +5,7 @@ from OpenGL.GLUT import *
 
 def Draw():
     glClear(GL_COLOR_BUFFER_BIT)
-    glRotatef(0.5, 0, 1, 0)
+    glRotatef(0.1, 1, 0, 1) #angle,x,y,z。其中，angle代表角度，控制转速；x,y,z代表旋转的轴
     glutWireTeapot(0.5)
     glFlush()
 
