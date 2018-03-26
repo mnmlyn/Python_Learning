@@ -8,7 +8,7 @@ def print8(str):
 
 aa = bjtuService.bjtuService()
 
-startDate = '2018-01-01'
+startDate = '2018-03-01'
 nowDate = time.strftime('%Y-%m-%d',time.localtime(time.time()))
 
 if aa.Login():
@@ -23,7 +23,7 @@ if aa.Login():
         if macUsage.has_key(item['MAC']):
             macUsage[item['MAC']] +=  float(item['dataUsed'])
         else:
-            macUsage[item['MAC']] = 0
+            macUsage[item['MAC']] = float(item['dataUsed'])
 
     #print macUsage
 
@@ -40,6 +40,7 @@ if aa.Login():
     #aa.forceToOffLine(mac='2082C0239FB0',ip='172.26.135.203')
 
     # 按照value对字典进行排序
+    print8('流量排序')
     sortedMacUsage = sorted(macUsage.items(),key=lambda item:item[1])
     print sortedMacUsage
     name_list = []
